@@ -19,7 +19,7 @@ int main()
     gridcreationmenu(&grid, &m, &n);
     populategridmenu(grid, m, n);
     clearbuffer();
-    simulate(grid, m, m);
+    simulate(grid, m, n);
     freematrix(grid, m);
 
     return 0;
