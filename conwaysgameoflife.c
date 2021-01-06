@@ -1,13 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define CLEARBUFFER() while ((getchar()) != '\n');
+#define MIN(x, y) ((x > y) ? y : x)
+#define MAX(x, y) ((x > y) ? x : y)
+#define CLAMP(n, min, max) (MIN(max, MAX(n, min)))
 
 void rendergrid(int *grid, int m, int n);
 void gridcreationmenu(int *m, int *n);
 void populategridmenu(int *grid, int n, int m);
 void simulate(int *grid, int n, int m);
-void clearbuffer();
 int getlivingneighbours(int *grid, int m, int n, int cellx, int celly);
-int clamp(int n, int min, int max);
 
 int main()
 {
@@ -17,7 +19,7 @@ int main()
     gridcreationmenu(&m, &n);
     grid = malloc(m * n * sizeof(int));
     populategridmenu(grid, m, n);
-    clearbuffer();
+    CLEARBUFFER();
     simulate(grid, m, n);
     free(grid);
 
@@ -100,9 +102,9 @@ int getlivingneighbours(int *grid, int m, int n, int cellx, int celly)
 {
     int i, j, qnt = 0;
 
-    for (i = clamp (cellx - 1, 0, m); i <= clamp (cellx + 1, 0, m-1); i++)
+    for (i = CLAMP (cellx - 1, 0, m); i <= CLAMP (cellx + 1, 0, m-1); i++)
     {
-        for (j = clamp (celly - 1, 0, n); j <= clamp (celly + 1, 0, n-1); j++)
+        for (j = CLAMP (celly - 1, 0, n); j <= CLAMP (celly + 1, 0, n-1); j++)
         {
             if (i == cellx && j == celly)
                 continue;
@@ -113,19 +115,4 @@ int getlivingneighbours(int *grid, int m, int n, int cellx, int celly)
     }
 
     return qnt;
-}
-
-int clamp(int n, int min, int max)
-{
-    if (n < min)
-        return min;
-    if (n > max)
-        return max;
-    
-    return n;
-}
-
-void clearbuffer()
-{
-    while ((getchar()) != '\n'); 
 }
