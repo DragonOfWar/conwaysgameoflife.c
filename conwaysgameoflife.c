@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define CLEARBUFFER() while ((getchar()) != '\n');
 #define MIN(x, y) ((x > y) ? y : x)
 #define MAX(x, y) ((x > y) ? x : y)
 #define CLAMP(n, min, max) (MIN(max, MAX(n, min)))
@@ -19,7 +18,7 @@ int main()
     gridcreationmenu(&m, &n);
     grid = malloc(m * n * sizeof(int));
     populategridmenu(grid, m, n);
-    CLEARBUFFER();
+    setbuf(stdin, NULL);
     simulate(grid, m, n);
     free(grid);
 
