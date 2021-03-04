@@ -92,7 +92,7 @@ void populategridmenu(int *grid, int m, int n)
 
 void loadgridfromfile(int **grid, int *m, int *n)
 {
-    int err = 1, c, l;
+    int err = 1, i, j;
     char location[512];
     FILE *file;
     printf("Loading simulation from file.\nThe file must contain a single line of numbers.\nThe first pair of numbers represent the grid's height and width respectively, and the follow n pairs of numbers represent the coordinates of the live cells.\n");
@@ -110,12 +110,12 @@ void loadgridfromfile(int **grid, int *m, int *n)
             *grid = malloc(sizeof(int) * *m * *n);
             while (!feof(file))
             {
-                l = 0;
-                c = 0;
-                fscanf(file, "%d", &l);
-                fscanf(file, "%d", &c);
-                if (c >= 0 && l >= 0 && c < *m && l < *n)
-                    (*grid)[l * *m + c] = 1;
+                i = 0;
+                j = 0;
+                fscanf(file, "%d ", &i);
+                fscanf(file, "%d ", &j);
+                if (i >= 0 && j >= 0 && i < *m && j < *n)
+                    (*grid)[i * *m + j] = 1;
             }
             err = 0;
         }
